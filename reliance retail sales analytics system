@@ -1,0 +1,130 @@
+sales_records = []
+
+def add_sales_record():
+    product = input("Enter Product Name: ")
+    category = input("Enter Category: ")
+    quantity = int(input("Enter Quantity Sold: "))
+    price = float(input("Enter Unit Price: "))
+
+    total_sale = quantity * price
+
+    record = {
+        "Product": product,
+        "Category": category,
+        "Quantity": quantity,
+        "Price": price,
+        "Total Sale": total_sale
+    }
+
+    sales_records.append(record)
+    print("Sales record added successfully!")
+
+def view_sales_records():
+    if not sales_records:
+        print("No sales records found.")
+    else:
+        print("\nSales Records")
+        for i, record in enumerate(sales_records, start=1):
+            print(f"\nRecord {i}")
+            print("Product :", record["Product"])
+            print("Category :", record["Category"])
+            print("Quantity :", record["Quantity"])
+            print("Price :", record["Price"])
+            print("Total Sale :", record["Total Sale"])
+
+def search_product():
+    name = input("Enter product name to search: ")
+
+    for record in sales_records:
+        if record["Product"].lower() == name.lower():
+            print("\nProduct Found")
+            print("Product :", record["Product"])
+            print("Category :", record["Category"])
+            print("Quantity :", record["Quantity"])
+            print("Price :", record["Price"])
+            print("Total Sale :", record["Total Sale"])
+            return
+
+    print("Product not found.")
+
+def remove_sales_record():
+    name = input("Enter product name to remove: ")
+
+    for record in sales_records:
+        if record["Product"].lower() == name.lower():
+            sales_records.remove(record)
+            print("Sales record removed successfully!")
+            return
+
+    print("Product not found.")
+
+def sales_summary():
+    if not sales_records:
+        print("No sales data available.")
+        return
+
+    total_quantity = sum(record["Quantity"] for record in sales_records)
+    total_revenue = sum(record["Total Sale"] for record in sales_records)
+    total_transactions = len(sales_records)
+    average_sale = total_revenue / total_transactions
+
+    print("\n===== SALES SUMMARY =====")
+    print("Total Products Sold :", total_quantity)
+    print("Total Revenue : ₹", total_revenue)
+    print("Total Transactions :", total_transactions)
+    print("Average Sales Value : ₹", round(average_sale, 2))
+
+def top_selling_products():
+    if not sales_records:
+        print("No sales data available.")
+        return
+
+    sorted_products = sorted(
+        sales_records,
+        key=lambda x: x["Total Sale"],
+        reverse=True
+    )
+
+    print("\n===== TOP SELLING PRODUCTS =====")
+
+    for i, record in enumerate(sorted_products, start=1):
+        print(f"{i}. {record['Product']} - ₹{record['Total Sale']}")
+
+while True:
+
+    print("\n===== RELIANCE RETAIL SALES ANALYTICS SYSTEM =====")
+    print("1. Add Sales Record")
+    print("2. View Sales Records")
+    print("3. Search Product")
+    print("4. Remove Sales Record")
+    print("5. Sales Summary")
+    print("6. Top Selling Products")
+    print("7. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_sales_record()
+
+    elif choice == "2":
+        view_sales_records()
+
+    elif choice == "3":
+        search_product()
+
+    elif choice == "4":
+        remove_sales_record()
+
+    elif choice == "5":
+        sales_summary()
+
+    elif choice == "6":
+        top_selling_products()
+
+    elif choice == "7":
+        print("Exiting Reliance Retail Sales Analytics System...")
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid choice. Please try again.")
