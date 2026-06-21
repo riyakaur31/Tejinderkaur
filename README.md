@@ -1,5 +1,4 @@
-Python project for managing reliance store sales dashboard.
-Reliance Retail Sales Analytics System
+Python project for Reliance Retail Sales Analytics System.
 
 Project Description
 
